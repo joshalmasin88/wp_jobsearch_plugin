@@ -29,14 +29,11 @@
                         // This outputs the result of the ajax request (The Callback)
                                 for (x in data.jobs) {
                                     jQuery(".jobs").append(`
-                                    <div class="card text-center">
+                                    <div class="card text-center mb-5">
                                         <div class="card-body">
                                             <h5 class="card-title">${data.jobs[x].title} - ${data.jobs[x].location}</h5>
                                             <p class="card-text">${data.jobs[x].snippet}</p>
                                             <a href="${data.jobs[x].link}" class="btn btn-primary">Apply</a>
-                                        </div>
-                                        <div class="card-footer text-muted">
-                                            2 days ago
                                         </div>
                                         </div>
                                     `)

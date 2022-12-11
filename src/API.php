@@ -3,28 +3,37 @@
 namespace App\JobSearcher;
 
 class API {
-
+    
+    /**
+     * storeAPIKey
+     *
+     * @return void
+     */
     public function storeAPIKey() {
-
+        if(isset($_POST['apikey']) && !empty($_POST['apikey'])){
+            $apiKey = sanitize_text_field( $_POST['apikey'] );
+            update_option( 'joobleapikey', $apiKey );
+            wp_safe_redirect( wp_get_referer() );
+        } else {
+            set_transient( 'error', 'Sorry you have not entered a valid api key', 10 );
+            wp_safe_redirect( wp_get_referer() );
+        }
     }
 
-    public function retreiveAPIKey() {
-
-    }
-    
-    
     /**
      * Method joobleSearch
      *
      * @return void
      */
     public function joobleSearch() {
+
+        $apiKey = get_option('joobleapikey');
         
         $keyword = $_POST['keywords'];
         $location = $_POST['location'];
 
         $url = "https://jooble.org/api/";
-        $key = "SECERTKEY";
+        $key = $apiKey;
         
         //create request object
         $ch = curl_init();
